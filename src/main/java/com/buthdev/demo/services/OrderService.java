@@ -54,6 +54,7 @@ public class OrderService {
 		order.setEstimatedDelivery(OffsetDateTime.now());
 		order.setUser(userService.findById(orderDto.id()));
 		order.setItems(itemService.findAllById(orderDto.items()));
+		order.setSenderCep(orderDto.senderCep());
 		return order;
 	}
 }

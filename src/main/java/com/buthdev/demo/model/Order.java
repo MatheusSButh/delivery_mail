@@ -27,6 +27,8 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	private String senderCep;
+	private Double totalValue;
 	private OffsetDateTime orderDate;
 	private OffsetDateTime estimatedDelivery;
 	
