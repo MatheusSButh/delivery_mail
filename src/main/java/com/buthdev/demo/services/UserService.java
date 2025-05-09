@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.buthdev.demo.dtos.UserDTO;
 import com.buthdev.demo.exceptions.NotFoundException;
+import com.buthdev.demo.model.Address;
 import com.buthdev.demo.model.User;
+import com.buthdev.demo.repositories.AddressRepository;
 import com.buthdev.demo.repositories.UserRepository;
 
 @Service
@@ -16,6 +18,9 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private AddressRepository addressRepository;
 	
 	@Autowired
 	private ViaCepService viaCepService;
@@ -32,6 +37,10 @@ public class UserService {
 		User user = new User();
 		convertToUser(userDto, user);
 		
+		Address address = user.getAddress();
+		if(address.getId() == null) {
+			addressRepository.save(address);
+		}
 		return userRepository.save(user);
 	}
 

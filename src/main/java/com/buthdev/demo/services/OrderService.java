@@ -60,14 +60,15 @@ public class OrderService {
 		order.setUser(userService.findById(orderDto.id()));
 		order.setItems(itemService.findAllById(orderDto.items()));
 		order.setSenderCep(orderDto.senderCep());
+		
 		MelhorEnvioDto melhorEnvioDto = melhorEnvioService.calcularFrete(orderDto.senderCep(), order.getUser().getCep());
+		
 		order.setEstimatedDelivery(order.getOrderDate().plusDays(melhorEnvioDto.getDeliveryTime()));
 		
 		double itemsTotalValue = 0;
 		for(Item x : order.getItems()) {
 			itemsTotalValue += x.getValue();
 		}
-		
 		order.setTotalValue(itemsTotalValue + melhorEnvioDto.getPrice());
 		
 		return order;
