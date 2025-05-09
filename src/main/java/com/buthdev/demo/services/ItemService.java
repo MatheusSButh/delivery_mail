@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.buthdev.demo.dtos.ItemDTO;
 import com.buthdev.demo.exceptions.NotFoundException;
 import com.buthdev.demo.model.Item;
 import com.buthdev.demo.repositories.ItemRepository;
 
+@Service
 public class ItemService {
 
 	@Autowired
@@ -39,6 +41,10 @@ public class ItemService {
 	public void deleteItem(Long id) {
 		findById(id);
 		itemRepository.deleteById(id);
+	}
+	
+	public List<Item> findAllById(Iterable<Long> id) {
+		return itemRepository.findAllById(id);
 	}
 	
 	

@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.buthdev.demo.dtos.UserDTO;
 import com.buthdev.demo.exceptions.NotFoundException;
 import com.buthdev.demo.model.User;
 import com.buthdev.demo.repositories.UserRepository;
 
+@Service
 public class UserService {
 
 	@Autowired
