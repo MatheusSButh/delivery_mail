@@ -8,7 +8,7 @@ import com.buthdev.demo.model.Address;
 @Service
 public class ViaCepService {
 	
-	public Address checkAddress(String cep) {
+	public Address convertAddress(String cep) {
 		String url = "https://viacep.com.br/ws/" + cep + "/json/";
 		
 		RestTemplate restTemplate = new RestTemplate();
