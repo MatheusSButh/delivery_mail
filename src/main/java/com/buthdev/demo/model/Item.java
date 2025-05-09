@@ -2,6 +2,8 @@ package com.buthdev.demo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +28,7 @@ public class Item {
 	private String name;
 	private Double value;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "items")
 	private List<Order> orders;
 }
