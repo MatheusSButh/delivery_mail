@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.buthdev.demo.dtos.MelhorEnvioDto;
+import com.google.gson.Gson;
+
 @Service
 public class MelhorEnvioService {
 
@@ -18,7 +21,7 @@ public class MelhorEnvioService {
 	    private static final String TOKEN = "SEU TOKEN";
 	    private static final String USER_AGENT = "Aplicação (SEU EMAIL)";
 
-	    public String calcularFrete(String senderCep, String userCep) {
+	    public MelhorEnvioDto calcularFrete(String senderCep, String userCep) {
 	        RestTemplate restTemplate = new RestTemplate();
 
 	        HttpHeaders headers = new HttpHeaders();
@@ -63,6 +66,10 @@ public class MelhorEnvioService {
 
 	        ResponseEntity<String> response = restTemplate.exchange(MELHOR_ENVIO_URL, HttpMethod.POST, entity, String.class);
 
-	        return response.getBody();
+	        String responseBody = response.getBody();
+	        Gson gson = new Gson();
+	        MelhorEnvioDto melhorEnvioDto = gson.fromJson(responseBody, MelhorEnvioDto.class);
+	        
+	        return melhorEnvioDto;
 	 }
 }

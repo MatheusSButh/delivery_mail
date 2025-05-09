@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.buthdev.demo.dtos.MelhorEnvioDto;
 import com.buthdev.demo.dtos.OrderDTO;
 import com.buthdev.demo.exceptions.NotFoundException;
+import com.buthdev.demo.model.Item;
 import com.buthdev.demo.model.Order;
 import com.buthdev.demo.repositories.OrderRepository;
 
@@ -58,8 +60,16 @@ public class OrderService {
 		order.setUser(userService.findById(orderDto.id()));
 		order.setItems(itemService.findAllById(orderDto.items()));
 		order.setSenderCep(orderDto.senderCep());
-		order.setEstimatedDelivery(melhorEnvioService.calcularFrete(orderDto.senderCep(), order.getUser().getCep()));
-
+		MelhorEnvioDto melhorEnvioDto = melhorEnvioService.calcularFrete(orderDto.senderCep(), order.getUser().getCep());
+		order.setEstimatedDelivery(order.getOrderDate().plusDays(melhorEnvioDto.getDeliveryTime()));
+		
+		double itemsTotalValue = 0;
+		for(Item x : order.getItems()) {
+			itemsTotalValue += x.getValue();
+		}
+		
+		order.setTotalValue(itemsTotalValue + melhorEnvioDto.getPrice());
+		
 		return order;
 	}
 }
