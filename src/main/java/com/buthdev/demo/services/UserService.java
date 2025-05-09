@@ -15,6 +15,9 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private ViaCepService viaCepService;
+	
 	public List<User> findAll(){
 		return userRepository.findAll();
 	}
@@ -44,6 +47,7 @@ public class UserService {
 	
 	private User convertToUser(UserDTO userDto, User user) {
 		BeanUtils.copyProperties(userDto, user);
+		user.setAddress(viaCepService.convertAddress(userDto.cep()));
 		return user;
 	}
 }

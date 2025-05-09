@@ -1,5 +1,6 @@
 package com.buthdev.demo.model;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -25,6 +26,9 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	private OffsetDateTime orderDate;
+	private OffsetDateTime estimatedDelivery;
 	
 	@ManyToMany
 	private List<Item> items;
