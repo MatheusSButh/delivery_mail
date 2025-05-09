@@ -23,6 +23,9 @@ public class OrderService {
 	@Autowired
 	private ItemService itemService;
 	
+	@Autowired
+	private MelhorEnvioService melhorEnvioService;
+	
 	public List<Order> findAll(){
 		return orderRepository.findAll();
 	}
@@ -51,10 +54,12 @@ public class OrderService {
 	
 	
 	private Order convertToOrder(OrderDTO orderDto, Order order) {
-		order.setEstimatedDelivery(OffsetDateTime.now());
+		order.setOrderDate(OffsetDateTime.now());
 		order.setUser(userService.findById(orderDto.id()));
 		order.setItems(itemService.findAllById(orderDto.items()));
 		order.setSenderCep(orderDto.senderCep());
+		order.setEstimatedDelivery(melhorEnvioService.calcularFrete(orderDto.senderCep(), order.getUser().getCep()));
+
 		return order;
 	}
 }

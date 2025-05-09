@@ -30,7 +30,7 @@ public class Order {
 	private String senderCep;
 	private Double totalValue;
 	private OffsetDateTime orderDate;
-	private OffsetDateTime estimatedDelivery;
+	private String estimatedDelivery;
 	
 	@ManyToMany
 	private List<Item> items;
