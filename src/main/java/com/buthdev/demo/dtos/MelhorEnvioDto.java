@@ -12,5 +12,6 @@ import lombok.Setter;
 public class MelhorEnvioDto {
 	
 	private Double price;
-    private Long deliveryTime;
+
+    private Integer delivery_time;
 }

@@ -63,7 +63,7 @@ public class OrderService {
 		
 		MelhorEnvioDto melhorEnvioDto = melhorEnvioService.calcularFrete(orderDto.senderCep(), order.getUser().getCep());
 		
-		order.setEstimatedDelivery(order.getOrderDate().plusDays(melhorEnvioDto.getDeliveryTime()));
+		order.setEstimatedDelivery(order.getOrderDate().plusDays(melhorEnvioDto.getDelivery_time()));
 		
 		double itemsTotalValue = 0;
 		for(Item x : order.getItems()) {
