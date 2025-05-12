@@ -18,10 +18,10 @@ public class MelhorEnvioService {
 
 
 	    private static final String MELHOR_ENVIO_URL = "https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate";
-	    private static final String TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NTYiLCJqdGkiOiI3ZTlhZDYxZjY0MmVjYWEzYjhiYTA2ZmZjY2VhZDE5NWEwNzFjYmU1NjU2MjgwODk1NzYzM2EzMWIxMTZmYjUwMjUyMDZiNTk0OTZlOWQ4YiIsImlhdCI6MTc0Njk5NDgzOS4xNTMzMzcsIm5iZiI6MTc0Njk5NDgzOS4xNTMzNCwiZXhwIjoxNzc4NTMwODM5LjE0NDAzMSwic3ViIjoiOWVkZWFjYTgtMjg0MS00ZjRjLTk2YWUtYmFiODhlYmExZWJkIiwic2NvcGVzIjpbInNoaXBwaW5nLWNhbGN1bGF0ZSJdfQ.L4Vq_J3fTtbm9RCpIf9xVWG83byr0HGbjXs59SjiGq0vkX1fHZuZkyvadZmRuCtdrwPeAKBw1X61KZ8HFEPrnhaZhMVQ2OuKYyAS0GiUVwoMlcYCrT03DCfafoM740Om4LqrR7Zvqdq2OWPxW9RG850n4ks6uZarEjKlcQ1tq5X9uO5yD3F8mfJ_LaKH04ALxWLOQhteS8CPKZakykCoiCnnAUl8FpqFOYbxI1rnZ4xwBGdBMZOkjI_eif7LI0KSAMkdecZ_iIV39OBC8HLzBwbDVJlPjteyhfeh_zIueZ66KNU6rgtOT_N4NOFM0YnZv_pTz10T7NLO-P_x4wZF1zXLQM6gm9k6_BggYXp_nu40_TzSMH7nmF3Jv9DT8EJoGn-jL1GBwrZWpCfVeL4F_CdfFU-3P2fBDi4hUThUcJZ9tDX5m9gbbODGxSQoYYsNZPVwL9an7LCZMtShZ93Klih3vOBO4LxAMT-uBkJWrWgtOjmSx8hXUtiXW_2HYT4MINkz-ddjrZ9w4_reL4iGomewqw2lpw83mLF__l6BXWpnrViIMojdyvEtNL8W-Ptlez09hOYH0hBLepOqGE-nH3avW-mljRT5eTDTItankZA--XKYDyIxQNZVlEDL_U88gytXjKl4W6-eoFMJ-rX9YBitKrDa_FoOVh-mliW_8GM";
+	    private static final String TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NTYiLCJqdGkiOiI3ZTE0ZDgzOTYxOGNlOTNiMGM1YTJhZGQ3YzE0YjE2ZThiNWZjNWU4YmJjMGRmMmI1Mzg3NGM2MmM4NjViOGYxMTlkZWE2MjMyNDUzMjQ5OCIsImlhdCI6MTc0NzA1ODg2My41MDg1NzIsIm5iZiI6MTc0NzA1ODg2My41MDg1NzUsImV4cCI6MTc3ODU5NDg2My41MDA0MzcsInN1YiI6IjllZGVhY2E4LTI4NDEtNGY0Yy05NmFlLWJhYjg4ZWJhMWViZCIsInNjb3BlcyI6WyJzaGlwcGluZy1jYWxjdWxhdGUiXX0.OWnKcO-iiEv9T7AJ7CFQGlP4_bXgogSMHtqEA3h3fYLeh0OIwybY2beAUxJ0lv7N9PmLJd4zlgclY-xG7o2bOaV_dOY_2cfDq5aBxZO4ybtlpON01GzwtBAMp6EM0MQ28uteN40c46nZY48UXgoYspUH1VFRU7Lk7UejEI23qQZn3xqwArs_MzsQOHne4gtVhulydYLPSiYI9cZVAOejOMGjPPzu4lR-CHSpA_1maJw3ukm6nY3xI2lBwneROzDSZefP21Vma9Ys27yhrPyTdSu4ee7TmK6Voa_SGpdK7mObgBC93nk0cJEeT2XAS53ccknOCP7Ynguit7ZIK9fT8I3nS4_d0eIIIAMliBzBQWl58fmVksyeQNdCEpDXVmgnqRM3PPNqVZqpebw3AAcE9qDah4T_QPMITLGwIQDYxQ_J6ZkB0dM-dumwRy_ft8iWw4LA1CgrhUpoHByriguRAGu-43utSQMq5XVsFAObyNCBHRCiIEFL4aUWtQSdYOGn_I9CgDfJpupu3F20j7TCz2EqNRoUo48jdQVvOfNRBjFuhznkrcufdqix1bAqfia3e9lmTbJa-9u77UlZ0jCETga7O1ubo5rGuV_BpmHDJDjyUX87kGzAwae5pyvE-2f0VFfKYl_bZxwgKIzFFqvyaFoAfIJwBM0KMKu82PQlfYM";
 	    private static final String USER_AGENT = "Aplicação (matheusdsouzabuth@gmail.com)";
 
-	    public MelhorEnvioDto calcularFrete(String senderCep, String userCep) {
+	    public MelhorEnvioDto calcularFrete(String senderCep, String receiverCep) {
 	        RestTemplate restTemplate = new RestTemplate();
 
 	        HttpHeaders headers = new HttpHeaders();
@@ -58,7 +58,7 @@ public class MelhorEnvioService {
 	            "non_commercial": true
 	          }
 	        }
-	        """, senderCep, userCep);
+	        """, senderCep, receiverCep);
 
 	        HttpEntity<String> entity = new HttpEntity<>(body, headers);
 	        
@@ -66,6 +66,8 @@ public class MelhorEnvioService {
 	        String responseBody = response.getBody();
 	        Gson gson = new Gson();
 	        MelhorEnvioDto melhorEnvioDto = gson.fromJson(responseBody, MelhorEnvioDto.class);
+	        
+	        System.out.println("Response from Melhor Envio: " + response.getBody());
 
 	        return melhorEnvioDto;
 	 }

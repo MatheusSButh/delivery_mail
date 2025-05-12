@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.buthdev.demo.dtos.MelhorEnvioDto;
 import com.buthdev.demo.dtos.OrderDTO;
-import com.buthdev.demo.exceptions.InvalidCepException;
 import com.buthdev.demo.exceptions.NotFoundException;
 import com.buthdev.demo.model.Item;
 import com.buthdev.demo.model.Order;
@@ -52,22 +51,18 @@ public class OrderService {
 	
 	public void deleteOrder(Long id) {
 		findById(id);
-		orderRepository.deleteById(id);
+        orderRepository.deleteById(id);
 	}
 	
-	
+
 	private Order convertToOrder(OrderDTO orderDto, Order order) {
 		
-		if(orderDto.senderCep().length() != 8) {
-			throw new InvalidCepException();
-		}
-		
 		order.setOrderDate(OffsetDateTime.now());
-		order.setUser(userService.findById(orderDto.id()));
+		order.setUserReceiver(userService.findById(orderDto.receiverId()));
+		order.setUserSender(userService.findById(orderDto.senderId()));
 		order.setItems(itemService.findAllById(orderDto.items()));
-		order.setSenderCep(orderDto.senderCep());
 		
-		MelhorEnvioDto melhorEnvioDto = melhorEnvioService.calcularFrete(orderDto.senderCep(), order.getUser().getCep());
+		MelhorEnvioDto melhorEnvioDto = melhorEnvioService.calcularFrete(order.getUserSender().getCep(), order.getUserReceiver().getCep());
 		
 		order.setEstimatedDelivery(order.getOrderDate().plusDays(melhorEnvioDto.getDelivery_time()));
 		

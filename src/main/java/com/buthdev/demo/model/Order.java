@@ -3,10 +3,13 @@ package com.buthdev.demo.model;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -27,14 +30,21 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String senderCep;
 	private Double totalValue;
 	private OffsetDateTime orderDate;
 	private OffsetDateTime estimatedDelivery;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "order_items",
+		    joinColumns = @JoinColumn(name = "order_id"),
+		    inverseJoinColumns = @JoinColumn(name = "item_id")
+		)
 	private List<Item> items;
 	
 	@ManyToOne
-	private User user;
+	private User userReceiver;
+	
+	@ManyToOne
+	private User userSender;
 }
