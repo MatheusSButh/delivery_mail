@@ -20,6 +20,9 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	@Autowired
+	AddressService addressService;
+	
+	@Autowired
 	private AddressRepository addressRepository;
 	
 	@Autowired
@@ -38,9 +41,14 @@ public class UserService {
 		convertToUser(userDto, user);
 		
 		Address address = user.getAddress();
-		if(address.getId() == null) {
+		
+		if(verificateCep(address.getCep()) == null ) {
 			addressRepository.save(address);
 		}
+		else {
+			user.setAddress(addressService.findAddressByCep(address.getCep()));
+		}
+	
 		return userRepository.save(user);
 	}
 
@@ -55,6 +63,15 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 	
+	
+	private Address verificateCep(String cep) {
+		Address addressVerificated = addressService.findAddressByCep(cep);
+		
+		if(addressVerificated == null) {
+			return null;
+		}
+		return addressVerificated;
+	}
 	
 	private User convertToUser(UserDTO userDto, User user) {
 		BeanUtils.copyProperties(userDto, user);

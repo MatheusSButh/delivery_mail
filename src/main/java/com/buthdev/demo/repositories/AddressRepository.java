@@ -8,5 +8,5 @@ import com.buthdev.demo.model.Address;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
 	
-	
+	public Address findAddressByCep(String cep);
 }
