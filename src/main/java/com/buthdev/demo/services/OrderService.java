@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.buthdev.demo.dtos.MelhorEnvioDto;
 import com.buthdev.demo.dtos.OrderDTO;
+import com.buthdev.demo.exceptions.InvalidDeliveryException;
 import com.buthdev.demo.exceptions.NotFoundException;
 import com.buthdev.demo.model.Item;
 import com.buthdev.demo.model.Order;
@@ -57,6 +58,7 @@ public class OrderService {
 
 	private Order convertToOrder(OrderDTO orderDto, Order order) {
 		
+		try {
 		order.setOrderDate(OffsetDateTime.now());
 		order.setUserReceiver(userService.findById(orderDto.receiverId()));
 		order.setUserSender(userService.findById(orderDto.senderId()));
@@ -73,5 +75,9 @@ public class OrderService {
 		order.setTotalValue(itemsTotalValue + melhorEnvioDto.getPrice());
 		
 		return order;
+		}
+		catch(RuntimeException e) {
+			throw new InvalidDeliveryException();
+		}
 	}
 }

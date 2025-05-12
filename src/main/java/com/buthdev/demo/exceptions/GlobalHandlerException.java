@@ -17,4 +17,9 @@ public class GlobalHandlerException {
 	public ResponseEntity<String> handleInvalidCepException(InvalidCepException e) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 	}
+	
+	@ExceptionHandler(InvalidDeliveryException.class)
+	public ResponseEntity<String> handleInvalidDeliveryException(InvalidDeliveryException e) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	}
 }
