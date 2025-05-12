@@ -64,7 +64,7 @@ public class OrderService {
 		order.setUserSender(userService.findById(orderDto.senderId()));
 		order.setItems(itemService.findAllById(orderDto.items()));
 		
-		MelhorEnvioDto melhorEnvioDto = melhorEnvioService.calcularFrete(order.getUserSender().getCep(), order.getUserReceiver().getCep());
+		MelhorEnvioDto melhorEnvioDto = calcularFrete(order.getUserSender().getCep(), order.getUserReceiver().getCep());
 		
 		order.setEstimatedDelivery(order.getOrderDate().plusDays(melhorEnvioDto.getDelivery_time()));
 		
@@ -79,5 +79,9 @@ public class OrderService {
 		catch(RuntimeException e) {
 			throw new InvalidDeliveryException();
 		}
+	}
+	
+	private MelhorEnvioDto calcularFrete(String senderCep, String receiverCep) {
+		return melhorEnvioService.calcularFrete(senderCep, receiverCep);
 	}
 }
