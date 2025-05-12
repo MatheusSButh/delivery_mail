@@ -14,10 +14,13 @@ public class AddressService {
 	@Autowired
 	private AddressRepository addressRepository;
 	
+	public Address createAddress(Address address) {
+		return addressRepository.save(address);
+	}
+	
 	public Address findById(Long id) {
 		return addressRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
 	}
-	
 	
 	public Address findAddressByCep(String cep) {
 		return addressRepository.findAddressByCep(cep);

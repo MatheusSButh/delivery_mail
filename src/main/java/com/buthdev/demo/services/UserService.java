@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.buthdev.demo.dtos.UserDTO;
+import com.buthdev.demo.exceptions.InvalidCepException;
 import com.buthdev.demo.exceptions.NotFoundException;
 import com.buthdev.demo.model.Address;
 import com.buthdev.demo.model.User;
-import com.buthdev.demo.repositories.AddressRepository;
 import com.buthdev.demo.repositories.UserRepository;
 
 @Service
@@ -21,9 +22,6 @@ public class UserService {
 	
 	@Autowired
 	AddressService addressService;
-	
-	@Autowired
-	private AddressRepository addressRepository;
 	
 	@Autowired
 	private ViaCepService viaCepService;
@@ -43,7 +41,7 @@ public class UserService {
 		Address address = user.getAddress();
 		
 		if(verificateCep(address.getCep()) == null ) {
-			addressRepository.save(address);
+			addressService.createAddress(address);
 		}
 		else {
 			user.setAddress(addressService.findAddressByCep(address.getCep()));
@@ -74,8 +72,13 @@ public class UserService {
 	}
 	
 	private User convertToUser(UserDTO userDto, User user) {
+		try {
 		BeanUtils.copyProperties(userDto, user);
 		user.setAddress(viaCepService.convertAddress(userDto.cep()));
 		return user;
-	}
+		}
+		catch(HttpClientErrorException e) {
+			throw new InvalidCepException();
+		}
+  }
 }
