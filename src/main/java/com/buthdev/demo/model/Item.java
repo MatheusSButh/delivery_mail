@@ -30,6 +30,6 @@ public class Item {
 	private Double value;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "items", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "items", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Order> orders;
 }

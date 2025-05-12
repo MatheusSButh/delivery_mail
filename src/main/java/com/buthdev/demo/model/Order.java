@@ -34,7 +34,7 @@ public class Order {
 	private OffsetDateTime orderDate;
 	private OffsetDateTime estimatedDelivery;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
 			name = "order_items",
 		    joinColumns = @JoinColumn(name = "order_id"),
