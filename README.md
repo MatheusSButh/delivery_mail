@@ -41,20 +41,15 @@
             <pre><code>git clone https://github.com/MatheusSButh/delivery_mail.git</code></pre>
         </li>
         <li>
-            <p><strong>Configure o banco de dados:</strong><br>
-            Atualize o arquivo <code>src/main/resources/application.properties</code>com as credenciais e URL do seu banco de dados relacional.</p>
-            <pre><code class="language-properties">spring.datasource.url=jdbc:SEU_BANCO://SEU_HOST:SEU_PORTA/SEU_DB
-spring.datasource.username=SEU_USUARIO
-spring.datasource.password=SUA_SENHA
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-</code></pre>
-        </li>
-        <li>
-            <p><strong>Configure o Melhor Envio API:</strong><br>
-            No arquivo <code>com.buthdev.demo.services.MelhorEnvioService.java</code>, substitua os campos pelas suas credenciais do Melhor Envio (Para gerar o token é necessário se cadastrar no sandbox da melhor envio e gerar um token no painel: https://melhorenvio.com.br/login</p>
-            <pre><code class="language-java">private static final String TOKEN = "SEU TOKEN";
-private static final String USER_AGENT = "Aplicação (SEU EMAIL)";
+            <p><strong>Configure as variáveis de ambiente:</strong><br>
+            Crie um arquivo .env na raiz do projeto. Em seguida, insira as seguintes informações:</p>
+            <pre><code class="language-properties">DB_URL=(SEU_BANCO://SEU_HOST:SEU_PORTA/SEU_DB)
+DB_PASSWORD=(Sua senha)
+DB_USERNAME=(Seu usuário)
+MELHOR_ENVIO_URL=https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate
+MELHOR_ENVIO_TOKEN=(Seu Token da API MelhorEnvio - Para gerar o token é necessário se cadastrar no sandbox da melhor envio e gerar um token no painel: https://melhorenvio.com.br/login)
+MELHOR_ENVIO_USER_AGENT=(Seu email)
+VIA_CEP_URL=https://viacep.com.br/ws/
 </code></pre>
         </li>
         <li>
