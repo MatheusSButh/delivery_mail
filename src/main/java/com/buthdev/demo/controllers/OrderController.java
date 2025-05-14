@@ -23,7 +23,7 @@ import com.buthdev.demo.services.OrderService;
 public class OrderController {
 
 	@Autowired
-	OrderService orderService;
+	private OrderService orderService;
 	
 	@GetMapping
 	public ResponseEntity<List<Order>> findAll() {

@@ -23,7 +23,7 @@ import com.buthdev.demo.services.UserService;
 public class UserController {
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	
 	@GetMapping
 	public ResponseEntity<List<User>> findAll() {

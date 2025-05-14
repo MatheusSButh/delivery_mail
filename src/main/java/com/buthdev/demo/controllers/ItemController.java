@@ -23,7 +23,7 @@ import com.buthdev.demo.services.ItemService;
 public class ItemController {
 
 	@Autowired
-	ItemService itemService;
+	private ItemService itemService;
 	
 	@GetMapping
 	public ResponseEntity<List<Item>> findAll() {
