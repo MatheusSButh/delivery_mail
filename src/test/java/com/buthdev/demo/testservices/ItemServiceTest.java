@@ -65,7 +65,7 @@ public class ItemServiceTest {
     	
     	//Arrange
         ItemDTO itemDto = new ItemDTO("Produto teste", 50.00);
-        when(itemRepository.save(any(Item.class))).thenThrow(new RuntimeException());
+        when(itemRepository.save(itemArgumentCaptor.capture())).thenThrow(new RuntimeException());
         
         // Act & Assert
         assertThrows(RuntimeException.class, () -> itemService.createItem(itemDto));

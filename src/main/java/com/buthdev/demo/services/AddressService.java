@@ -10,6 +10,8 @@ import com.buthdev.demo.repositories.AddressRepository;
 @Service
 public class AddressService {
 
+	@Autowired
+	private ViaCepService viaCepService;
 	
 	@Autowired
 	private AddressRepository addressRepository;
@@ -24,5 +26,22 @@ public class AddressService {
 	
 	public Address findAddressByCep(String cep) {
 		return addressRepository.findAddressByCep(cep);
+	}
+	
+	
+	public Address findOrCreateAddress(String cep) {
+		Address address = findAddressByCep(cep);
+		
+		if(address == null) {
+			address = convertCepToAddress(cep);
+			return createAddress(address);
+		}
+		else {
+			return address;
+		}
+	}
+	
+	protected Address convertCepToAddress(String cep) {
+		return viaCepService.convertAddress(cep);
 	}
 }

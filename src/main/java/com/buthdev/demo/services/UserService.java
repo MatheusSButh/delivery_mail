@@ -23,9 +23,6 @@ public class UserService {
 	@Autowired
 	AddressService addressService;
 	
-	@Autowired
-	private ViaCepService viaCepService;
-	
 	public List<User> findAll(){
 		return userRepository.findAll();
 	}
@@ -40,12 +37,7 @@ public class UserService {
 		
 		Address address = user.getAddress();
 		
-		if(verificateCep(address.getCep()) == null ) {
-			addressService.createAddress(address);
-		}
-		else {
-			user.setAddress(addressService.findAddressByCep(address.getCep()));
-		}
+		user.setAddress(addressService.findOrCreateAddress(address.getCep()));
 	
 		return userRepository.save(user);
 	}
@@ -62,19 +54,10 @@ public class UserService {
 	}
 	
 	
-	private Address verificateCep(String cep) {
-		Address addressVerificated = addressService.findAddressByCep(cep);
-		
-		if(addressVerificated == null) {
-			return null;
-		}
-		return addressVerificated;
-	}
-	
 	private User convertToUser(UserDTO userDto, User user) {
 		try {
 		BeanUtils.copyProperties(userDto, user);
-		user.setAddress(viaCepService.convertAddress(userDto.cep()));
+		user.setAddress(addressService.convertCepToAddress(userDto.cep()));
 		return user;
 		}
 		catch(HttpClientErrorException e) {
